@@ -49,6 +49,8 @@ python3 demo_basic.py
 
 - `demo_exec_file.py`: This advanced script runs a Python task from a file with input files, pre-scripts, and post-scripts. It highlights the ability to execute complex scripts with external dependencies.
 
+- `demo_transf_file.py`: Demonstrates file handling in ProActive tasks, focusing on including input files for processing and designating output files to capture task results. This script counts the number of files in a specified directory and outputs the count both to the terminal and to a file within the same directory, showcasing data transfer and file management in ProActive workflows.
+
 - `demo_forkenv.py`: Shows how to create and execute a Python task within a job, with emphasis on configuring the execution environment using a fork environment script.
 
 - `demo_selectionscript.py`: This script explains how to create a job and a task, and ensures that the task is executed only on Linux machines using a selection script.
