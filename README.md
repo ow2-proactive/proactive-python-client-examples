@@ -61,19 +61,46 @@ Please ensure the ProActive Scheduler is running and accessible, and that you ha
 
 ## Advanced Examples
 
-In addition to the basic and intermediate examples provided in this repository, we also have an advanced set of examples that delve into more complex use cases of the ProActive Scheduler with machine learning workflows.
+The repository also includes a collection of advanced examples that demonstrate more complex use cases of the ProActive Scheduler, particularly focusing on machine learning workflows. These examples illustrate how to set up, configure, and execute sophisticated machine learning models and workflows using the ProActive Python client.
 
-### CIFAR-10 Logistic Regression Classifier
+### Machine Learning Workflows
+
+- **Diabetics Detection**: Utilizes various machine learning algorithms to detect diabetic patients from clinical datasets.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_AutoSklearn_Classifier`: Detects diabetes using the Auto-sklearn Classifier.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_Isolation_Forest`: Applies Isolation Forest for anomaly detection in diabetes data.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_K_Means`: Employs K-Means clustering for diabetes data segmentation.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_Mean_Shift`: Uses Mean Shift clustering for diabetes data analysis.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_One_Class_SVM`: Implements One-Class SVM for outlier detection in diabetes datasets.
+  - `python -m demo_ai_workflows.Diabetics_Detection_Using_TPOT_Classifier`: Leverages the TPOT Classifier for automated machine learning in diabetes detection.
+
+- **House Price Prediction**: Demonstrates the use of various regression models to predict house prices based on the Boston housing dataset.
+  - `python -m demo_ai_workflows.House_Price_Prediction_Using_AutoSklearn_Regressor`: Predicts house prices using Auto-sklearn Regressor.
+  - `python -m demo_ai_workflows.House_Price_Prediction_Using_Bayesian_Ridge_Regression`: Applies Bayesian Ridge Regression for house price prediction.
+  - `python -m demo_ai_workflows.House_Price_Prediction_Using_Linear_Regression`: Utilizes Linear Regression for predicting house prices.
+  - `python -m demo_ai_workflows.House_Price_Prediction_Using_Support_Vector_Regression`: Employs Support Vector Regression for house price estimation.
+  - `python -m demo_ai_workflows.House_Price_Prediction_Using_TPOT_Regressor`: Uses the TPOT Regressor for automated machine learning in house price prediction.
+
+- **Iris Flowers Classification**: Showcases classification models for identifying Iris flower species from the Iris dataset.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_AdaBoost`: Classifies Iris species using AdaBoost.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_CatBoost`: Implements CatBoost for Iris species classification.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Gaussian_Naive_Bayes`: Utilizes Gaussian Naive Bayes for classifying Iris species.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Gradient_Boosting`: Applies Gradient Boosting for Iris species classification.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Logistic_Regression`: Uses Logistic Regression for Iris species classification.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Random_Forest`: Employs Random Forest for classifying Iris species.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Support_Vector_Machines`: Demonstrates SVM usage for Iris species classification.
+  - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_XGBoost`: Leverages XGBoost for Iris species classification.
+
+### In-Depth Example: CIFAR-10 Logistic Regression Classifier
 
 The [CIFAR-10 Logistic Regression Classifier](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) example demonstrates how to train and evaluate a logistic regression model on the CIFAR-10 dataset, which is a common benchmark in machine learning for image classification tasks.
 
-The repository includes:
+- **Repository Contents**: The repository includes:
 
 - Scripts for training and evaluating the model (`train.py` and `eval.py`).
 - A directory structure to organize models and predictions.
 - A sample script (`submit2proactive.py`) to submit a job to the ProActive Scheduler, showing how to run complex machine learning workflows on distributed computing environments.
 
-To explore this advanced example, visit the [repository](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) and follow the instructions provided in its `README` to set up your environment, train the model, and submit the job to ProActive.
+- **Getting Started**: To explore this advanced example, visit the [repository](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) and follow the instructions provided in its `README` to set up your environment, train the model, and submit the job to ProActive.
 
 Please ensure that your environment meets the prerequisites and that the ProActive Scheduler is running and accessible before you begin.
 
