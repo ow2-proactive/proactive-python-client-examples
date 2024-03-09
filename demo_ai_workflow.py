@@ -17,7 +17,7 @@ try:
 
     print("Creating a proactive job...")
     proactive_job = gateway.createJob()
-    proactive_job.setJobName("ai_machine_learning_workflow")
+    proactive_job.setJobName("demo_ai_workflow")
 
     print("Getting the ai-machine-learning bucket")
     bucket = gateway.getBucket("ai-machine-learning")

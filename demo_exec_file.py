@@ -23,11 +23,10 @@ try:
 
     print("Creating a proactive job...")
     proactive_job = gateway.createJob()
-    proactive_job.setJobName("SimpleJob")
+    proactive_job.setJobName("demo_exec_file_job")
 
     print("Creating a proactive task #1...")
-    proactive_task_1 = gateway.createPythonTask()
-    proactive_task_1.setTaskName("SimplePythonTask1")
+    proactive_task_1 = gateway.createPythonTask("demo_exec_file_task")
     proactive_task_1.setTaskExecutionFromFile('demo_exec_file/main.py', ['param1', 'param2'])
     proactive_task_1.addInputFile('demo_exec_file/hellopkg/**')
     proactive_task_1.addGenericInformation("PYTHON_COMMAND", "python3")

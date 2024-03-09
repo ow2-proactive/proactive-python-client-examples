@@ -20,11 +20,10 @@ try:
 
     print("Creating a proactive job...")
     proactive_job = gateway.createJob()
-    proactive_job.setJobName("SimpleJob")
+    proactive_job.setJobName("demo_impl_url_job")
 
     print("Creating a proactive task #1...")
-    proactive_task_1 = gateway.createPythonTask()
-    proactive_task_1.setTaskName("SimplePythonTask1")
+    proactive_task_1 = gateway.createPythonTask("demo_impl_url_task")
     proactive_task_1.addVariable("TASK_ENABLED", "True")
     proactive_task_1.addVariable("INPUT_VARIABLES", "{}")
     proactive_task_1.addVariable("SCORING", "accuracy")

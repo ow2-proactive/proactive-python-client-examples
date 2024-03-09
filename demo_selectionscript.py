@@ -20,11 +20,10 @@ try:
 
     print("Creating a proactive job...")
     proactive_job = gateway.createJob()
-    proactive_job.setJobName("SimpleJob")
+    proactive_job.setJobName("demo_selectionscript_job")
 
     print("Creating a proactive task #1...")
-    proactive_task_1 = gateway.createPythonTask()
-    proactive_task_1.setTaskName("SimplePythonTask1")
+    proactive_task_1 = gateway.createPythonTask("demo_selectionscript_task")
     proactive_task_1.setTaskImplementation("""print("Hello from " + variables.get("PA_TASK_NAME"))""")
     proactive_task_1.addGenericInformation("PYTHON_COMMAND", "python3")
 
