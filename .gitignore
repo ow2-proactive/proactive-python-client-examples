@@ -2,4 +2,5 @@ env
 .env
 *.pyc
 __pycache__
+_*
 Makefile.*
