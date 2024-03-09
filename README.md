@@ -39,6 +39,8 @@ To install the latest pre-release or development version of the Proactive Python
 python3 -m pip install --pre proactive
 ```
 
+The `--pre` flag is included to allow pip to find and install pre-releases.
+
 ## Running the Examples
 
 To test if the installation was successful and see the proactive client in action, you can run the provided example scripts. For instance, to run the `demo_basic.py` script:
@@ -64,6 +66,24 @@ python3 demo_basic.py
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
 Please ensure the ProActive Scheduler is running and accessible, and that you have the required scripts and environments set up before executing these examples.
+
+## Advanced Examples
+
+In addition to the basic and intermediate examples provided in this repository, we also have an advanced set of examples that delve into more complex use cases of the ProActive Scheduler with machine learning workflows.
+
+### CIFAR-10 Logistic Regression Classifier
+
+The [CIFAR-10 Logistic Regression Classifier](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) example demonstrates how to train and evaluate a logistic regression model on the CIFAR-10 dataset, which is a common benchmark in machine learning for image classification tasks.
+
+The repository includes:
+
+- Scripts for training and evaluating the model (`train.py` and `eval.py`).
+- A directory structure to organize models and predictions.
+- A sample script (`submit2proactive.py`) to submit a job to the ProActive Scheduler, showing how to run complex machine learning workflows on distributed computing environments.
+
+To explore this advanced example, visit the [repository](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) and follow the instructions provided in its `README` to set up your environment, train the model, and submit the job to ProActive.
+
+Please ensure that your environment meets the prerequisites and that the ProActive Scheduler is running and accessible before you begin.
 
 ## Additional Information
 
