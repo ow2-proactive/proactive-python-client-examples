@@ -17,18 +17,10 @@ source env/bin/activate
 
 ### Upgrading Required Packages
 
-Once the virtual environment is activated, upgrade `pip` and `setuptools` to the latest versions:
+Once the virtual environment is activated, upgrade `pip`, `setuptools` and `python-dotenv` to the latest versions:
 
 ```bash
-python3 -m pip install --upgrade pip setuptools
-```
-
-### Installing Dependencies
-
-Install the required packages listed in `requirements.txt`:
-
-```bash
-python3 -m pip install -r requirements.txt
+python3 -m pip install --upgrade pip setuptools python-dotenv
 ```
 
 ## Installing the Proactive Python SDK
