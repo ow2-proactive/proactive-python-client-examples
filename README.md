@@ -57,6 +57,8 @@ python3 demo_basic.py
 
 - `demo_impl_url.py`: Illustrates how to set up a machine learning task (Logistic Regression) using a script sourced from a URL, showing the ProActive Scheduler's capability to incorporate external scripts.
 
+- `demo_job_status.py`: Demonstrates the process of job submission and monitoring with the ProActive Python SDK. It walks through creating a job, adding a Python task, submitting the job to the ProActive Scheduler, and monitoring its status until completion, concluding with the retrieval and display of the job's output.
+
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
 Please ensure the ProActive Scheduler is running and accessible, and that you have the required scripts and environments set up before executing these examples.

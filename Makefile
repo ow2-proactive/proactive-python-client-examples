@@ -56,5 +56,9 @@ run_all:
 	done
 	@echo "All Python scripts have been run."
 
+print_version:
+	@. env/bin/activate && $(PYTHON) -m pip show proactive
+	@. env/bin/activate && $(PYTHON) -c "import proactive; print(proactive.__version__)"
+
 help:
 	@cat Makefile
