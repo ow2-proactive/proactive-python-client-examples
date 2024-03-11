@@ -34,14 +34,13 @@ try:
     is_finished = False
     while not is_finished:
         # Get the current state of the job
-        job_state = gateway.getJobState(job_id)
-        job_status = job_state.getJobInfo().getStatus().toString()
+        job_status = gateway.getJobStatus(job_id)
         
         # Print the current job status
         print(f"Current job status: {job_status}")
         
         # Check if the job has finished
-        if str(job_status).upper() in ["FINISHED", "CANCELED", "FAILED"]:
+        if job_status.upper() in ["FINISHED", "CANCELED", "FAILED"]:
             is_finished = True
         else:
             # Wait for a few seconds before checking again
