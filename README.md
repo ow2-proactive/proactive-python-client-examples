@@ -28,7 +28,7 @@ python3 -m pip install --upgrade pip setuptools python-dotenv
 To install the latest pre-release or development version of the Proactive Python SDK, which includes the most recent features and fixes, use the following command:
 
 ```bash
-python3 -m pip install --pre proactive
+python3 -m pip install --upgrade --pre proactive
 ```
 
 The `--pre` flag is included to allow pip to find and install pre-releases.

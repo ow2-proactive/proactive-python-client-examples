@@ -33,12 +33,12 @@ uninstall_proactive:
 
 install_latest: uninstall_proactive
 	@echo "Installing the latest pre-release of proactive..."
-	@. env/bin/activate && $(PYTHON) -m pip install --pre proactive
+	@. env/bin/activate && $(PYTHON) -m pip install --upgrade --pre proactive
 	@echo "Latest pre-release of proactive installed."
 
 install_latest_test: uninstall_proactive
 	@echo "Installing the latest test version of proactive from TestPyPI..."
-	@. env/bin/activate && $(PYTHON) -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple --pre proactive
+	@. env/bin/activate && $(PYTHON) -m pip install --upgrade --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple --pre proactive
 	@echo "Latest test version of proactive installed."
 
 install_latest_local: uninstall_proactive
