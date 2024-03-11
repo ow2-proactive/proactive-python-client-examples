@@ -8,6 +8,8 @@ Before running the examples, you may want to create a virtual environment to avo
 
 ### Creating a Virtual Environment (Optional)
 
+#### On Mac and Linux
+
 To create a virtual environment, run the following commands:
 
 ```bash
@@ -15,13 +17,36 @@ python3 -m venv env
 source env/bin/activate
 ```
 
+You can also use the provided `Makefile`:
+```bash
+make virtualenv
+```
+
+#### On Windows
+
+On Windows, you can use the provided `build.bat` script to create and manage the virtual environment:
+
+```cmd
+build.bat VIRTUAL_ENV
+```
+
+This command will create a new virtual environment or use the existing one based on your input.
+
 ### Upgrading Required Packages
 
 Once the virtual environment is activated, upgrade `pip`, `setuptools` and `python-dotenv` to the latest versions:
 
+#### On Mac and Linux
+
 ```bash
 python3 -m pip install --upgrade pip setuptools python-dotenv
 ```
+
+If you have used the provided `Makefile`, it automatically upgrades these packages when setting up the virtual environment.
+
+#### On Windows
+
+The `build.bat` script automatically upgrades these packages when setting up the virtual environment.
 
 ## Installing the Proactive Python SDK
 
@@ -33,6 +58,18 @@ python3 -m pip install --upgrade --pre proactive
 
 The `--pre` flag is included to allow pip to find and install pre-releases.
 
+#### Using Makefile (For Mac and Linux)
+
+```bash
+make install_latest
+```
+
+#### On Windows
+
+```cmd
+build.bat INSTALL_LATEST
+```
+
 ## Running the Examples
 
 To test if the installation was successful and see the proactive client in action, you can run the provided example scripts. For instance, to run the `demo_basic.py` script:
@@ -40,6 +77,24 @@ To test if the installation was successful and see the proactive client in actio
 ```bash
 python3 demo_basic.py
 ```
+
+#### Using Makefile (For Mac and Linux)
+
+For instance, to run all the provided example scripts:
+
+```bash
+make run_all
+```
+
+#### On Windows
+
+To run all the provided example scripts:
+
+```cmd
+build.bat RUN_ALL
+```
+
+This command will execute all `.py` files in the current directory.
 
 ## Examples Description
 
