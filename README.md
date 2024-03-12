@@ -18,6 +18,7 @@ source env/bin/activate
 ```
 
 You can also use the provided `Makefile`:
+
 ```bash
 make virtualenv
 ```
@@ -58,13 +59,13 @@ python3 -m pip install --upgrade --pre proactive
 
 The `--pre` flag is included to allow pip to find and install pre-releases.
 
-#### Using Makefile (For Mac and Linux)
+### Using Makefile (For Mac and Linux)
 
 ```bash
 make install_latest
 ```
 
-#### On Windows
+### On Windows
 
 ```cmd
 build.bat INSTALL_LATEST
@@ -78,7 +79,7 @@ To test if the installation was successful and see the proactive client in actio
 python3 demo_basic.py
 ```
 
-#### Using Makefile (For Mac and Linux)
+### Using Makefile (For Mac and Linux)
 
 For instance, to run all the provided example scripts:
 
@@ -86,7 +87,7 @@ For instance, to run all the provided example scripts:
 make run_all
 ```
 
-#### On Windows
+### On Windows
 
 To run all the provided example scripts:
 
@@ -118,9 +119,13 @@ This command will execute all `.py` files in the current directory.
 
 Please ensure the ProActive Scheduler is running and accessible, and that you have the required scripts and environments set up before executing these examples.
 
-## Advanced Examples
+## Leveraging Pre-built AI Tasks from Proactive AI Orchestration
 
-The repository also includes a collection of advanced examples that demonstrate more complex use cases of the ProActive Scheduler, particularly focusing on machine learning workflows. These examples illustrate how to set up, configure, and execute sophisticated machine learning models and workflows using the ProActive Python client.
+This section of the repository showcases advanced examples that leverage the powerful capabilities of the Proactive AI Orchestration platform, specifically utilizing tasks from the `ai-machine-learning` bucket. The `ai-machine-learning` bucket is a comprehensive collection of generic machine learning tasks, designed to facilitate the seamless composition of workflows for the learning and testing of predictive models. These tasks are highly versatile and can be tailored to meet specific requirements, enabling users to effortlessly integrate and execute sophisticated machine learning models and workflows.
+
+Each example demonstrates the practical application of these pre-built tasks, offering insights into how they can be customized and combined to create complex machine learning solutions. Whether you're looking to add new tasks or modify existing ones, the `ai-machine-learning` bucket provides a flexible framework that supports a wide range of machine learning activities, from data preprocessing and model training to evaluation and inference.
+
+For detailed information on how to customize the `ai-machine-learning` bucket to suit your unique needs, and to explore the full range of tasks and capabilities it offers, please refer to the [Proactive AI Orchestration User Guide](https://trydev2.activeeon.com/doc/PAIO/PAIOUserGuide.html).
 
 ### Machine Learning Workflows
 
@@ -149,7 +154,11 @@ The repository also includes a collection of advanced examples that demonstrate 
   - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_Support_Vector_Machines`: Demonstrates SVM usage for Iris species classification.
   - `python -m demo_ai_workflows.Iris_Flowers_Classification_Using_XGBoost`: Leverages XGBoost for Iris species classification.
 
-### In-Depth Example: CIFAR-10 Logistic Regression Classifier
+## Advanced Examples
+
+The repository also includes a collection of advanced examples that demonstrate more complex use cases of the ProActive Scheduler, particularly focusing on machine learning workflows. These examples illustrate how to set up, configure, and execute sophisticated machine learning models and workflows using the ProActive Python client.
+
+### CIFAR-10 Logistic Regression Classifier
 
 The [CIFAR-10 Logistic Regression Classifier](https://github.com/ow2-proactive/ai-examples/tree/master/machine-learning/logistic-regression) example demonstrates how to train and evaluate a logistic regression model on the CIFAR-10 dataset, which is a common benchmark in machine learning for image classification tasks.
 
