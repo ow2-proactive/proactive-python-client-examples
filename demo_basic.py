@@ -1,51 +1,51 @@
 """
-This script illustrates a straightforward example of utilizing the ProActive Scheduler to execute a simple Python task. The procedural steps encapsulated in this script include:
+This script demonstrates a straightforward use case of submitting a Python task to the ProActive Scheduler for execution. The key steps performed in this script include:
 
-1. Establishing a connection with the ProActive Scheduler via the 'getProActiveGateway' function provided by the 'utils.helper' module, demonstrating the ease of integrating ProActive Scheduler functionalities.
-2. Initiating the creation of a new job titled "SimpleJob," which acts as a container for one or more tasks that will be managed and executed by the scheduler.
-3. Defining a Python task, named "SimplePythonTask1," with an inline implementation that prints a greeting and the Python version being used. This showcases the capability to embed Python code directly within the task configuration, facilitating quick and dynamic task setups.
-4. Specifying that the Python task should be executed using Python 3, as indicated by the addition of generic information. This detail ensures compatibility and consistency across different execution environments.
-5. Adding the configured Python task to the previously created job, thereby assembling the job's structure and its constituent tasks.
-6. Submitting the assembled job to the ProActive Scheduler for execution. The scheduler is then responsible for managing the job's lifecycle, including task scheduling, execution, and resource allocation.
-7. Retrieving and printing the output of the job, allowing for immediate visibility into the execution results. This step is crucial for debugging and verifying the correctness of the task's implementation.
-8. Ensuring a graceful disconnection and termination of the gateway connection to the ProActive Scheduler, highlighting the importance of proper resource management and cleanup after job submission.
+1. Initializing a connection with the ProActive Scheduler using the 'getProActiveGateway' function from the 'proactive' library, facilitating the integration of ProActive Scheduler capabilities into Python applications.
+2. Creating a new job named "demo_basic_job" through the ProActive gateway. A job serves as a container for one or more tasks, managed and executed by the scheduler.
+3. Configuring a Python task named "demo_basic_task" with an inline script. The script prints a greeting message followed by the current Python version. This demonstrates how to directly embed Python code within a task's configuration for quick and flexible task creation.
+4. Adding generic information to specify that the Python task should run using Python 3. This ensures that the task is executed in the correct environment, maintaining compatibility and consistency.
+5. Adding the configured Python task to the newly created job, assembling the job's structure with its constituent tasks.
+6. Submitting the job to the ProActive Scheduler for execution. The scheduler handles the job's lifecycle, including task scheduling, execution, and resource allocation.
+7. Retrieving and displaying the job's output upon completion. This step provides immediate insight into the execution results, which is essential for debugging and validation purposes.
+8. Closing the gateway connection to the ProActive Scheduler in a graceful manner. This emphasizes the importance of proper resource management and cleanup after job submission and execution.
 
-This script serves as a basic demonstration of submitting and executing a Python task within the ProActive Scheduler environment, emphasizing simplicity and ease of use. It provides a foundation for more complex scheduling and task execution scenarios.
+This script offers a basic example of how to submit and execute a Python task within the ProActive Scheduler environment, focusing on simplicity and user-friendliness. It lays the groundwork for more sophisticated scheduling and task execution scenarios.
 """
-from utils.helper import getProActiveGateway
+from proactive import getProActiveGateway
 
-proactive_task_1_impl = """
+# Initialize the ProActive gateway
+gateway = getProActiveGateway()
+
+# Create a new ProActive job
+print("Creating a proactive job...")
+job = gateway.createJob()
+job.setJobName("demo_basic_job")
+
+# Create a Python task
+print("Creating a proactive task...")
+task = gateway.createPythonTask("demo_basic_task")
+task.addGenericInformation("PYTHON_COMMAND", "python3")
+task.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))
 print("Python version: ", platform.python_version())
-"""
+""")
 
-try:
-    gateway = getProActiveGateway()
+# Add the Python task to the job
+print("Adding proactive tasks to the proactive job...")
+job.addTask(task)
 
-    print("Creating a proactive job...")
-    proactive_job = gateway.createJob()
-    proactive_job.setJobName("demo_basic_job")
+# Job submission
+print("Submitting the job to the proactive scheduler...")
+job_id = gateway.submitJob(job)
+print("job_id: " + str(job_id))
 
-    print("Creating a proactive task #1...")
-    proactive_task_1 = gateway.createPythonTask("demo_basic_task")
-    proactive_task_1.setTaskImplementation(proactive_task_1_impl)
-    proactive_task_1.addGenericInformation("PYTHON_COMMAND", "python3")
+# Retrieve job output
+print("Getting job output...")
+job_output = gateway.getJobOutput(job_id)
+print(job_output)
 
-    print("Adding proactive tasks to the proactive job...")
-    proactive_job.addTask(proactive_task_1)
-
-    print("Submitting the job to the proactive scheduler...")
-    job_id = gateway.submitJob(proactive_job)
-    print("job_id: " + str(job_id))
-
-    print("Getting job output...")
-    job_output = gateway.getJobOutput(job_id)
-    print(job_output)
-
-finally:
-    print("Disconnecting")
-    gateway.disconnect()
-    print("Disconnected")
-    gateway.terminate()
-    print("Finished")
+# Cleanup
+gateway.close()
+print("Disconnected and finished.")

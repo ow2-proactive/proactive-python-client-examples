@@ -7,11 +7,18 @@ Key Steps:
 - Demonstrates the use of input and output files in ProActive tasks, specifying patterns to include all files within a directory for processing and result generation.
 - Submits the job to the ProActive scheduler, retrieves, and prints the job output to the console.
 
-Ensure the ProActive scheduler is accessible and the 'utils.helper' module is correctly set up before executing this script.
+Ensure the ProActive scheduler is accessible and the 'proactive' module is correctly set up before executing this script.
 """
-from utils.helper import getProActiveGateway
+from proactive import getProActiveGateway
 
-proactive_task_1_impl = """
+gateway = getProActiveGateway()
+
+print("Creating a proactive job...")
+job = gateway.createJob("demo_transf_file_job")
+
+print("Creating a proactive task...")
+task = gateway.createTask(language="bash", task_name="demo_transf_file_task")
+task.setTaskImplementation("""
 echo "Hello from $variables_PA_TASK_NAME"
 pwd && find .
 
@@ -29,35 +36,21 @@ RESULT_FILE="$DIRECTORY/file_count.txt"
 
 # Write the file count to the specified result file inside the directory
 echo "Number of files in $DIRECTORY: $FILE_COUNT" > "$RESULT_FILE"
-"""
+""")
+task.addInputFile('demo_transf_file/**')
+task.addOutputFile('demo_transf_file/**')
 
-try:
-    gateway = getProActiveGateway()
+print("Adding proactive tasks to the proactive job...")
+job.addTask(task)
 
-    print("Creating a proactive job...")
-    proactive_job = gateway.createJob()
-    proactive_job.setJobName("demo_transf_file_job")
+print("Submitting the job to the proactive scheduler...")
+job_id = gateway.submitJobWithInputsAndOutputsPaths(job)
+print("job_id: " + str(job_id))
 
-    print("Creating a proactive task #1...")
-    proactive_task_1 = gateway.createTask(language="bash", task_name="demo_transf_file_task")
-    proactive_task_1.setTaskImplementation(proactive_task_1_impl)
-    proactive_task_1.addInputFile('demo_transf_file/**')
-    proactive_task_1.addOutputFile('demo_transf_file/**')
+print("Getting job output...")
+job_output = gateway.getJobOutput(job_id)
+print(job_output)
 
-    print("Adding proactive tasks to the proactive job...")
-    proactive_job.addTask(proactive_task_1)
-
-    print("Submitting the job to the proactive scheduler...")
-    job_id = gateway.submitJobWithInputsAndOutputsPaths(proactive_job)
-    print("job_id: " + str(job_id))
-
-    print("Getting job output...")
-    job_output = gateway.getJobOutput(job_id)
-    print(job_output)
-
-finally:
-    print("Disconnecting")
-    gateway.disconnect()
-    print("Disconnected")
-    gateway.terminate()
-    print("Finished")
+print("Disconnecting")
+gateway.close()
+print("Disconnected and finished.")
