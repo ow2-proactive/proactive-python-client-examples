@@ -19,8 +19,7 @@ gateway = getProActiveGateway()
 
 # Create a new ProActive job
 print("Creating a proactive job...")
-job = gateway.createJob()
-job.setJobName("demo_basic_job")
+job = gateway.createJob("demo_basic_job")
 
 # Create a Python task
 print("Creating a proactive task...")
