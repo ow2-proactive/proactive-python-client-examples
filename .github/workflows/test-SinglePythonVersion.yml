@@ -1,0 +1,92 @@
+name: Test Python Package on Single Python Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      UBUNTU_VERSION:
+        description: 'Ubuntu version'
+        required: true
+        type: choice
+        options:
+        - 'ubuntu-18.04'
+        - 'ubuntu-20.04'
+        - 'ubuntu-22.04'
+        - 'ubuntu-latest'
+        default: 'ubuntu-20.04'
+      PYTHON_VERSION:
+        description: 'Python version'
+        required: true
+        type: choice
+        options:
+        - '3.5'
+        - '3.6'
+        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+        default: '3.9'
+      JAVA_VERSION:
+        description: 'Java version (LTS versions)'
+        required: true
+        type: choice
+        options:
+        - '8'
+        - '11'
+        - '17'
+        - '21'
+        default: '8'
+      PROACTIVE_URL:
+        description: 'ProActive Server URL'
+        required: true
+        type: string
+        default: 'https://try.activeeon.com:8443'
+      PROACTIVE_PYTHON_SDK:
+        description: 'ProActive Python SDK'
+        required: true
+        type: choice
+        options:
+        - 'install_latest'
+        - 'install_latest_test'
+        default: 'install_latest'
+
+jobs:
+  test:
+    runs-on: '${{ github.event.inputs.UBUNTU_VERSION }}'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '${{ github.event.inputs.PYTHON_VERSION }}'
+
+    - name: Install Java ${{ github.event.inputs.JAVA_VERSION }}
+      uses: actions/setup-java@v3
+      with:
+        java-version: '${{ github.event.inputs.JAVA_VERSION }}'
+        distribution: 'adopt'
+
+    - name: Display Pip and Python version
+      run: python -m pip -V
+
+    - name: Setting up virtual environment
+      run: make virtualenv
+
+    - name: Installing proactive python sdk
+      run: make ${{ github.event.inputs.PROACTIVE_PYTHON_SDK }}
+
+    - name: Check proactive version
+      run: make print_version
+
+    - name: Run scripts using secrets
+      env:
+        PROACTIVE_URL: ${{ github.event.inputs.PROACTIVE_URL }}
+        PROACTIVE_USERNAME: ${{ secrets.PROACTIVE_USERNAME }}
+        PROACTIVE_PASSWORD: ${{ secrets.PROACTIVE_PASSWORD }}
+      run: make run_all
+
+    - name: Show local files
+      run: pwd && find .
