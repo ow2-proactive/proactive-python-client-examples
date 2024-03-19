@@ -12,72 +12,67 @@ Workflow Details:
 - Predict_Model: Applies the trained model to the test data to make predictions on house prices, evaluating the model's effectiveness.
 - Preview_Results: Provides an initial overview of the prediction results, offering insights into the accuracy and reliability of the TPOT Regressor model in estimating house prices.
 
-The script utilizes 'utils.helper' for seamless connectivity to the ProActive gateway, facilitating smooth job orchestration and execution. Following the job's completion, it ensures a proper disconnection and termination of the gateway, maintaining the integrity of system resources.
+The script utilizes 'proactive' for seamless connectivity to the ProActive gateway, facilitating smooth job orchestration and execution. Following the job's completion, it ensures a proper disconnection and termination of the gateway, maintaining the integrity of system resources.
 
 Please ensure the ProActive Python client and necessary dependencies are installed, and the ProActive server is accessible before running the script.
 """
-from utils.helper import getProActiveGateway
+from proactive import getProActiveGateway
 
-try:
-    gateway = getProActiveGateway()
+gateway = getProActiveGateway()
 
-    print("Creating a proactive job...")
-    proactive_job = gateway.createJob()
-    proactive_job.setJobName("House_Price_Prediction_Using_TPOT_Regressor")
+print("Creating a proactive job...")
+job = gateway.createJob()
+job.setJobName("House_Price_Prediction_Using_TPOT_Regressor")
 
-    print("Getting the ai-machine-learning bucket")
-    bucket = gateway.getBucket("ai-machine-learning")
+print("Getting the ai-machine-learning bucket")
+bucket = gateway.getBucket("ai-machine-learning")
 
-    # ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
 
-    print("Creating the Load_Boston_Dataset task...")
-    load_boston_dataset_task = bucket.create_Load_Boston_Dataset_task()
-    proactive_job.addTask(load_boston_dataset_task)
+print("Creating the Load_Boston_Dataset task...")
+load_boston_dataset_task = bucket.create_Load_Boston_Dataset_task()
+job.addTask(load_boston_dataset_task)
 
-    print("Creating the Split_Data task...")
-    split_data_task = bucket.create_Split_Data_task()
-    split_data_task.addDependency(load_boston_dataset_task)
-    proactive_job.addTask(split_data_task)
+print("Creating the Split_Data task...")
+split_data_task = bucket.create_Split_Data_task()
+split_data_task.addDependency(load_boston_dataset_task)
+job.addTask(split_data_task)
 
-    print("Creating the TPOT_Regressor task...")
-    tpot_regressor_task = bucket.create_TPOT_Regressor_task()
-    proactive_job.addTask(tpot_regressor_task)
+print("Creating the TPOT_Regressor task...")
+tpot_regressor_task = bucket.create_TPOT_Regressor_task()
+job.addTask(tpot_regressor_task)
 
-    print("Creating the Train_Model task...")
-    train_model_task = bucket.create_Train_Model_task()
-    train_model_task.addDependency(split_data_task)
-    train_model_task.addDependency(tpot_regressor_task)
-    proactive_job.addTask(train_model_task)
+print("Creating the Train_Model task...")
+train_model_task = bucket.create_Train_Model_task()
+train_model_task.addDependency(split_data_task)
+train_model_task.addDependency(tpot_regressor_task)
+job.addTask(train_model_task)
 
-    print("Creating the Download_Model task...")
-    download_model_task = bucket.create_Download_Model_task()
-    download_model_task.addDependency(train_model_task)
-    proactive_job.addTask(download_model_task)
+print("Creating the Download_Model task...")
+download_model_task = bucket.create_Download_Model_task()
+download_model_task.addDependency(train_model_task)
+job.addTask(download_model_task)
 
-    print("Creating the Predict_Model task...")
-    predict_model_task = bucket.create_Predict_Model_task()
-    predict_model_task.addDependency(split_data_task)
-    predict_model_task.addDependency(train_model_task)
-    proactive_job.addTask(predict_model_task)
+print("Creating the Predict_Model task...")
+predict_model_task = bucket.create_Predict_Model_task()
+predict_model_task.addDependency(split_data_task)
+predict_model_task.addDependency(train_model_task)
+job.addTask(predict_model_task)
 
-    print("Creating the Preview_Results task...")
-    preview_results_task = bucket.create_Preview_Results_task()
-    preview_results_task.addDependency(predict_model_task)
-    proactive_job.addTask(preview_results_task)
+print("Creating the Preview_Results task...")
+preview_results_task = bucket.create_Preview_Results_task()
+preview_results_task.addDependency(predict_model_task)
+job.addTask(preview_results_task)
 
-    # ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
 
-    print("Submitting the job to the proactive scheduler...")
-    job_id = gateway.submitJob(proactive_job)
-    print("job_id: " + str(job_id))
+print("Submitting the job to the proactive scheduler...")
+job_id = gateway.submitJob(job)
+print("job_id: " + str(job_id))
 
-    print("Getting job output...")
-    job_output = gateway.getJobOutput(job_id)
-    print(job_output)
+print("Getting job output...")
+job_output = gateway.getJobOutput(job_id)
+print(job_output)
 
-finally:
-    print("Disconnecting")
-    gateway.disconnect()
-    print("Disconnected")
-    gateway.terminate()
-    print("Finished")
+gateway.close()
+print("Disconnected and finished.")
