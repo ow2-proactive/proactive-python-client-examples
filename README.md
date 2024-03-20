@@ -115,7 +115,15 @@ This command will execute all `.py` files in the current directory.
 
 - `demo_job_status.py`: Demonstrates the process of job submission and monitoring with the ProActive Python SDK. It walks through creating a job, adding a Python task, submitting the job to the ProActive Scheduler, and monitoring its status until completion, concluding with the retrieval and display of the job's output.
 
+- `demo_multilanguage_job.py`: Showcases the creation and submission of a multi-language job (Python and Groovy tasks), emphasizing the scheduler's support for diverse programming languages within a single job.
+
+- `demo_task_result.py`: Highlights job submission with task dependencies and result handling, showing how to create tasks that process and utilize the results of preceding tasks.
+
+- `demo_dataspace_api.py`: Demonstrates managing data transfers between local spaces and the ProActive Scheduler's data spaces (user and global), using the ProActive Python Client.
+
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
+
+Additional scripts found in the `demo_ai_workflows` directory showcase various machine learning workflows, leveraging the ProActive Scheduler for tasks like data preprocessing, model training, evaluation, and prediction across different datasets and using various algorithms.
 
 Please ensure the ProActive Scheduler is running and accessible, and that you have the required scripts and environments set up before executing these examples.
 
