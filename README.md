@@ -121,6 +121,8 @@ This command will execute all `.py` files in the current directory.
 
 - `demo_dataspace_api.py`: Demonstrates managing data transfers between local spaces and the ProActive Scheduler's data spaces (user and global), using the ProActive Python Client.
 
+- `demo_runtimeenv.py`: Demonstrates the process of executing a Python task within the ProActive Scheduler, emphasizing the configurability of the task's execution environment. It demonstrates establishing a connection to the scheduler, creating a job, and configuring a Python task to run within a specified container environment. This example highlights the scheduler's flexibility in executing tasks in varied and complex runtime settings.
+
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
 Additional scripts found in the `demo_ai_workflows` directory showcase various machine learning workflows, leveraging the ProActive Scheduler for tasks like data preprocessing, model training, evaluation, and prediction across different datasets and using various algorithms.
