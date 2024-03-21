@@ -101,27 +101,33 @@ This command will execute all `.py` files in the current directory.
 
 - `demo_basic.py`: A simple script that showcases how to connect to the ProActive Scheduler, create a job and a Python task, and execute it.
 
+- `demo_job_task_var.py`: Demonstrates the use of job and task-level variables within the ProActive Scheduler. This script highlights how to define and access variables that can be shared across tasks within a job, facilitating dynamic task configuration and the passing of data between tasks. It showcases setting variables at both the job and individual task levels, and accessing these variables within task implementations for flexible, dynamic workflow execution.
+
+- `demo_global_var.py`: Demonstrates the use of global variables between tasks in ProActive Scheduler. It exemplifies creating and managing jobs and tasks with a focus on inter-task communication via global variables.
+
+- `demo_task_result.py`: Highlights job submission with task dependencies and result handling, showing how to create tasks that process and utilize the results of preceding tasks.
+
+- `demo_task_dependency.py`: Illustrates how to manage task dependencies within the ProActive Scheduler. It demonstrates creating a series of tasks with specific execution orders, showcasing the scheduler's capability to handle complex dependencies. This example provides insights into structuring a job where tasks execute sequentially or in parallel, based on their dependencies, ensuring that dependent tasks wait for their predecessors to complete before starting.
+
+- `demo_multilanguage_job.py`: Showcases the creation and submission of a multi-language job (Python and Groovy tasks), emphasizing the scheduler's support for diverse programming languages within a single job.
+
+- `demo_job_status.py`: Demonstrates the process of job submission and monitoring with the ProActive Python SDK. It walks through creating a job, adding a Python task, submitting the job to the ProActive Scheduler, and monitoring its status until completion, concluding with the retrieval and display of the job's output.
+
 - `demo_impl_file.py`: Demonstrates the basic usage of the ProActive Scheduler for executing a Python task implemented in an external file.
 
+- `demo_impl_url.py`: Illustrates how to set up a machine learning task (Logistic Regression) using a script sourced from a URL, showing the ProActive Scheduler's capability to incorporate external scripts.
+
 - `demo_exec_file.py`: This advanced script runs a Python task from a file with input files, pre-scripts, and post-scripts. It highlights the ability to execute complex scripts with external dependencies.
+
+- `demo_dataspace_api.py`: Demonstrates managing data transfers between local spaces and the ProActive Scheduler's data spaces (user and global), using the ProActive Python Client.
 
 - `demo_transf_file.py`: Demonstrates file handling in ProActive tasks, focusing on including input files for processing and designating output files to capture task results. This script counts the number of files in a specified directory and outputs the count both to the terminal and to a file within the same directory, showcasing data transfer and file management in ProActive workflows.
 
 - `demo_forkenv.py`: Shows how to create and execute a Python task within a job, with emphasis on configuring the execution environment using a fork environment script.
 
-- `demo_selectionscript.py`: This script explains how to create a job and a task, and ensures that the task is executed only on Linux machines using a selection script.
-
-- `demo_impl_url.py`: Illustrates how to set up a machine learning task (Logistic Regression) using a script sourced from a URL, showing the ProActive Scheduler's capability to incorporate external scripts.
-
-- `demo_job_status.py`: Demonstrates the process of job submission and monitoring with the ProActive Python SDK. It walks through creating a job, adding a Python task, submitting the job to the ProActive Scheduler, and monitoring its status until completion, concluding with the retrieval and display of the job's output.
-
-- `demo_multilanguage_job.py`: Showcases the creation and submission of a multi-language job (Python and Groovy tasks), emphasizing the scheduler's support for diverse programming languages within a single job.
-
-- `demo_task_result.py`: Highlights job submission with task dependencies and result handling, showing how to create tasks that process and utilize the results of preceding tasks.
-
-- `demo_dataspace_api.py`: Demonstrates managing data transfers between local spaces and the ProActive Scheduler's data spaces (user and global), using the ProActive Python Client.
-
 - `demo_runtimeenv.py`: Demonstrates the process of executing a Python task within the ProActive Scheduler, emphasizing the configurability of the task's execution environment. It demonstrates establishing a connection to the scheduler, creating a job, and configuring a Python task to run within a specified container environment. This example highlights the scheduler's flexibility in executing tasks in varied and complex runtime settings.
+
+- `demo_selectionscript.py`: This script explains how to create a job and a task, and ensures that the task is executed only on Linux machines using a selection script.
 
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
