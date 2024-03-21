@@ -2,6 +2,31 @@
 
 This repository contains a collection of example scripts that demonstrate various features of the proactive Python client. These scripts showcase how to create and manage jobs, tasks, and use advanced scheduling features in a Python environment.
 
+## Summary
+
+- [Proactive Python Client Examples](#proactive-python-client-examples)
+  - [Summary](#summary)
+  - [Setting Up the Environment](#setting-up-the-environment)
+    - [Creating a Virtual Environment (Optional)](#creating-a-virtual-environment-optional)
+      - [On Mac and Linux](#on-mac-and-linux)
+      - [On Windows](#on-windows)
+    - [Upgrading Required Packages](#upgrading-required-packages)
+      - [On Mac and Linux](#on-mac-and-linux-1)
+      - [On Windows](#on-windows-1)
+  - [Installing the Proactive Python SDK](#installing-the-proactive-python-sdk)
+    - [Using Makefile (For Mac and Linux)](#using-makefile-for-mac-and-linux)
+    - [On Windows](#on-windows-2)
+  - [Running the Examples](#running-the-examples)
+    - [Using Makefile (For Mac and Linux)](#using-makefile-for-mac-and-linux-1)
+    - [On Windows](#on-windows-3)
+  - [Examples Description](#examples-description)
+  - [Leveraging Pre-built AI Tasks from Proactive AI Orchestration](#leveraging-pre-built-ai-tasks-from-proactive-ai-orchestration)
+    - [Machine Learning Workflows](#machine-learning-workflows)
+  - [Advanced Examples](#advanced-examples)
+    - [CIFAR-10 Logistic Regression Classifier](#cifar-10-logistic-regression-classifier)
+  - [Additional Information](#additional-information)
+  - [Contributing](#contributing)
+
 ## Setting Up the Environment
 
 Before running the examples, you may want to create a virtual environment to avoid conflicts with other Python projects. A virtual environment is a self-contained directory that contains a Python installation for a particular version of Python, plus a number of additional packages.
