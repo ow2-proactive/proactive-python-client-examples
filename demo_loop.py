@@ -13,6 +13,18 @@ This script exemplifies how to create and manage a ProActive Scheduler job incor
 
 The script serves as a practical guide for utilizing loop control flows within ProActive Scheduler jobs, facilitating the construction of complex workflows with conditional task execution.
 
++-------------+           +-------------+
+|             |           |             |
+|  Start Task |---------->|   End Task  |
+|             |           |             |
++-------------+           +-------------+
+       ^                           |
+       |                           |
+       |          +-------------------+
+       |          |                   |
+       +----------|  Loop Flow Script |
+                  |                   |
+                  +-------------------+
 """
 from proactive import getProActiveGateway, ProactiveFlowBlock, ProactiveScriptLanguage
 
@@ -53,7 +65,7 @@ flow_script = gateway.createLoopFlowScript(loop_script, task_start.getTaskName()
 # Associate the loop flow script to the end task
 task_end.setFlowScript(flow_script)
 
-# Add the Python task to the job
+# Add the Python tasks to the job
 print("Adding proactive tasks to the proactive job...")
 job.addTask(task_start)
 job.addTask(task_end)
