@@ -9,6 +9,21 @@ Steps:
 5. The job is submitted to the ProActive Scheduler for execution, and the script awaits and prints the job's output upon completion.
 
 This script emphasizes the use of the ProActive Scheduler for orchestrating complex workflows, particularly in the context of machine learning, showcasing its capability to manage dependencies and execute tasks in an ordered and efficient manner.
+
++-----------------------+       +---------------+       +------------------------+       +---------------------+
+|                       |       |               |       |                        |       |                     |
+|  Load Iris Dataset    |------>|  Split Data   |------>| Logistic Regression    |------>|   Train Model       |
+|                       |       |               |       |                        |       |                     |
++-----------------------+       +---------------+       +------------------------+       +---------------------+
+                                                                                                    |
+            +--------------------------+------------------------------------------------------------+
+            |                          |
+            v                          v
++---------------------+       +---------------------+       +-----------------------+
+|                     |       |                     |       |                       |
+|  Download Model     |       |   Predict Model     |------>|   Preview Results     |
+|                     |       |                     |       |                       |
++---------------------+       +---------------------+       +-----------------------+
 """
 from proactive import getProActiveGateway
 
