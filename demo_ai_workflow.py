@@ -10,15 +10,15 @@ Steps:
 
 This script emphasizes the use of the ProActive Scheduler for orchestrating complex workflows, particularly in the context of machine learning, showcasing its capability to manage dependencies and execute tasks in an ordered and efficient manner.
 
-+-----------------------+       +---------------+       +------------------------+       +---------------------+
-|                       |       |               |       |                        |       |                     |
-|  Load Iris Dataset    |------>|  Split Data   |------>| Logistic Regression    |------>|   Train Model       |
-|                       |       |               |       |                        |       |                     |
-+-----------------------+       +---------------+       +------------------------+       +---------------------+
-                                                                                                    |
-            +--------------------------+------------------------------------------------------------+
-            |                          |
-            v                          v
++-----------------------+       +---------------+       +---------------------+       +------------------------+
+|                       |       |               |       |                     |       |                        |
+|  Load Iris Dataset    |------>|  Split Data   |------>|   Train Model       |<------| Logistic Regression    |
+|                       |       |               |       |                     |       |                        |
++-----------------------+       +---------------+       +---------------------+       +------------------------+
+                                        |                          |
+            +---------------------------+--------------------------+
+            |                           |
+            v                           v
 +---------------------+       +---------------------+       +-----------------------+
 |                     |       |                     |       |                       |
 |  Download Model     |       |   Predict Model     |------>|   Preview Results     |
