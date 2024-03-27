@@ -1,20 +1,18 @@
 """
-This script demonstrates an advanced use case of the ProActive Scheduler for running Python tasks, incorporating the use of input files, pre-scripts, and post-scripts. The steps are outlined as follows:
+This script showcases an advanced ProActive Scheduler use case focused on executing Python tasks that require pre-execution setup, post-execution cleanup, and access to external files or resources. The workflow includes the following steps:
 
-1. The script initiates a connection to the ProActive Scheduler via a utility function provided by 'proactive'.
-2. A new job, "demo_exec_file_job," is created to encapsulate the tasks to be executed.
-3. A Python task, "demo_exec_file_task," is defined. This task is configured to execute a Python script from a file ('main.py'), with 'param1' and 'param2' as its parameters. This demonstrates the ability to run complex Python scripts with arguments within the ProActive Scheduler environment.
-4. The task is further configured to include an entire directory ('hellopkg/**') as input files, illustrating the scheduler's capability to handle tasks with external dependencies or resources.
-5. The task is set to run using Python 3, indicated by the addition of generic information specifying the Python command.
-6. A pre-script is added to the task, which runs before the main task execution. This pre-script is a simple Bash command that prints a message, showcasing the ability to perform setup operations or environment checks before the task runs.
-7. Similarly, a post-script is attached to run after the main task execution. This post-script, also a Bash command, prints a concluding message, useful for cleanup operations or post-execution checks.
-8. The task is then added to the job, preparing it for submission to the ProActive Scheduler.
-9. The job is submitted, with the script capturing and printing the job ID for reference. The scheduler then manages the job execution based on the provided configuration and its internal policies.
-10. The script actively fetches and prints the job's output, allowing for immediate inspection of the execution results.
+1. Establish a connection with the ProActive Scheduler using the proactive library, demonstrating the SDK's capability to interact with the scheduler.
+2. Create a ProActive job named "demo_exec_file_job," serving as a container for the tasks.
+3. Define a Python task "demo_exec_file_task," configured to execute a Python script ('main.py') with parameters ('param1' and 'param2'), demonstrating how to run complex scripts with arguments.
+4. Configure the task to include a directory ('demo_exec_file/hellopkg/**') as input files, illustrating the scheduler's handling of tasks with external dependencies.
+5. Set the task to execute using Python 3 by specifying the Python command in the task's generic information, highlighting the SDK's support for different Python versions.
+6. Add the configured task to the job, preparing it for submission.
+7. Submit the job to the ProActive Scheduler, capturing the job ID for reference, and demonstrating the scheduler's job management capabilities.
+8. Fetch and print the job's output, providing insights into the task's execution results.
 
-In conclusion, the script disconnects and terminates the gateway connection, emphasizing clean resource management.
+The script concludes by disconnecting from the gateway, emphasizing the importance of clean disconnection and resource management after job execution.
 
-This script highlights the ProActive Scheduler's flexibility and robustness in handling Python tasks, especially those requiring pre-execution and post-execution steps, as well as tasks dependent on external files or resources.
+This demonstration highlights the ProActive Scheduler's versatility in managing Python tasks, especially those requiring specific pre- and post-execution steps or dependent on external resources.
 """
 from proactive import getProActiveGateway
 
@@ -28,16 +26,6 @@ task = gateway.createPythonTask("demo_exec_file_task")
 task.setTaskExecutionFromFile('demo_exec_file/main.py', ['param1', 'param2'])
 task.addInputFile('demo_exec_file/hellopkg/**')
 task.addGenericInformation("PYTHON_COMMAND", "python3")
-
-print("Adding a pre-script to task...")
-pre_script = gateway.createPreScript(gateway.getProactiveScriptLanguage().linux_bash())
-pre_script.setImplementation("""echo "\n --- This is a pre-script --- \n";""")
-task.setPreScript(pre_script)
-
-print("Adding a post-script to task...")
-post_script = gateway.createPostScript(gateway.getProactiveScriptLanguage().linux_bash())
-post_script.setImplementation("""echo "\n --- This is a post-script --- \n";""")
-task.setPostScript(post_script)
 
 print("Adding proactive tasks to the proactive job...")
 job.addTask(task)
