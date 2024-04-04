@@ -11,13 +11,8 @@ Key Features:
 - - Add and remove node tokens, demonstrating dynamic node management.
 - Submitting the job to the scheduler and retrieving the job output upon completion.
 
-Requirements:
-- ProActive Scheduler and Python client installed and configured, with access to the Resource Manager.
-- Groovy language support for task scripting.
-
-Usage:
-- Make sure the ProActive Scheduler is up and running, and accessible from the environment where this script is executed.
-- Run this script with Python to perform the demonstrated Resource Manager operations. The script will automatically handle job creation, task submission, and output retrieval.
+Resource Manager API Documentation:
+- https://try.activeeon.com/doc/javadoc/org/ow2/proactive/resourcemanager/frontend/ResourceManager.html
 
 Note:
 - The script assumes familiarity with the ProActive Scheduler and Resource Manager configurations. Modify the connection details and task implementations as necessary for your specific setup.
@@ -36,9 +31,6 @@ job = gateway.createJob("demo_rm_api_job")
 print("Creating a proactive task...")
 task = gateway.createTask(language=ProactiveScriptLanguage().groovy(), task_name="demo_rm_api_task")
 task.setTaskImplementation("""
-// Resource Manager API Documentation
-// https://try.activeeon.com/doc/javadoc/org/ow2/proactive/resourcemanager/frontend/ResourceManager.html
-
 // connect to the rm
 rmapi.connect()
 
