@@ -22,7 +22,6 @@ job = gateway.createJob("demo_impl_file_job")
 print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_impl_file_task")
 task.setTaskImplementationFromFile('demo_impl_file/random_number.py')
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 
 print("Adding proactive tasks to the proactive job...")
 job.addTask(task)

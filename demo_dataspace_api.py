@@ -70,7 +70,6 @@ job = gateway.createJob("demo_dataspace_api_job")
 # Create a Python task A
 print("Creating a Python task...")
 taskA = gateway.createPythonTask("PythonTaskA")
-taskA.addGenericInformation("PYTHON_COMMAND", "python3")
 taskA.setTaskImplementation("""
 import os
 
@@ -101,7 +100,6 @@ variables.put("TASK_A_DATASPACE_PATH", dataspace_path)
 # Create a Python task B
 print("Creating a Python task...")
 taskB = gateway.createPythonTask("PythonTaskB")
-taskB.addGenericInformation("PYTHON_COMMAND", "python3")
 taskB.addDependency(taskA)
 taskB.setTaskImplementation("""
 import os

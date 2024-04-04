@@ -21,7 +21,6 @@ job = gateway.createJob("demo_pre_post_script_job")
 # Create a Python task
 print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_pre_post_script_task")
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 task.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))

@@ -23,7 +23,6 @@ job = gateway.createJob("demo_selectionscript_job")
 print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_selectionscript_task")
 task.setTaskImplementation("""print("Hello from " + variables.get("PA_TASK_NAME"))""")
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 
 print("Adding a selection script to the proactive task...")
 task_selection_script = gateway.createSelectionScript(language="groovy")

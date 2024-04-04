@@ -23,7 +23,6 @@ job = gateway.createJob("demo_forkenv_job")
 
 print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_forkenv_task")
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 task.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))

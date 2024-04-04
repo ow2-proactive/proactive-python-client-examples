@@ -26,7 +26,6 @@ task.addVariable("TASK_ENABLED", "True")
 task.addVariable("INPUT_VARIABLES", "{}")
 task.addVariable("SCORING", "accuracy")
 task.setTaskImplementationFromURL(gateway.base_url + "/catalog/buckets/ai-machine-learning/resources/Logistic_Regression_Script/raw")
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 
 print("Adding a fork environment to the proactive task...")
 task_fork_env = gateway.createForkEnvironment(language="groovy")

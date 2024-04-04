@@ -33,7 +33,6 @@ job = gateway.createJob("demo_task_dependency")
 # Create a Python task A
 print("Creating a proactive task...")
 taskA = gateway.createPythonTask("PythonTaskA")
-taskA.addGenericInformation("PYTHON_COMMAND", "python3")
 taskA.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))
@@ -44,7 +43,6 @@ print("Python version: ", platform.python_version())
 print("Creating a proactive task...")
 taskB = gateway.createPythonTask("PythonTaskB")
 taskB.addDependency(taskA)
-taskB.addGenericInformation("PYTHON_COMMAND", "python3")
 taskB.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"), " [running in parallel with Task C]")
@@ -55,7 +53,6 @@ print("Python version: ", platform.python_version())
 print("Creating a proactive task...")
 taskC = gateway.createPythonTask("PythonTaskC")
 taskC.addDependency(taskA)
-taskC.addGenericInformation("PYTHON_COMMAND", "python3")
 taskC.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"), " [running in parallel with Task B]")
@@ -67,7 +64,6 @@ print("Creating a proactive task...")
 taskD = gateway.createPythonTask("PythonTaskD")
 taskD.addDependency(taskB)
 taskD.addDependency(taskC)
-taskD.addGenericInformation("PYTHON_COMMAND", "python3")
 taskD.setTaskImplementation("""
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"), " [waits for Task B and C to be finished]")

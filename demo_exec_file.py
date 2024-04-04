@@ -25,7 +25,6 @@ print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_exec_file_task")
 task.setTaskExecutionFromFile('demo_exec_file/main.py', ['param1', 'param2'])
 task.addInputFile('demo_exec_file/hellopkg/**')
-task.addGenericInformation("PYTHON_COMMAND", "python3")
 
 print("Adding proactive tasks to the proactive job...")
 job.addTask(task)
