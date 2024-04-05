@@ -166,6 +166,12 @@ This command will execute all `.py` files in the current directory.
 
 - `demo_3controls.py`: Combines replication, iteration, and branching for advanced job workflows. Demonstrates the scheduler's capability for sophisticated task management. Enables complex computational workflows with parallel execution and conditional logic.
 
+- `demo_scheduler_api.py`: This example demonstrates the basic usage of the ProActive Scheduler API within a Python environment. It covers establishing a connection to the ProActive Scheduler, creating and configuring a job with multiple tasks, and managing the submission and monitoring of the job through the scheduler's API. The example is structured to highlight key API functions such as job creation, task addition, job submission, and retrieval of job results, providing a comprehensive overview of interacting with the ProActive Scheduler programmatically.
+
+- `demo_resource_manager_api.py`: Illustrates the interaction with the ProActive Resource Manager (RM) API for managing computational resources within ProActive Scheduler jobs. The script showcases how to use the RM API to query the state of resources, manage nodes and node sources, and perform operations like adding or removing nodes from the resource manager. This example serves as a practical guide for developers looking to programmatically manage and optimize the allocation of computational resources for their tasks and jobs within the ProActive Scheduler.
+
+- `demo_synchronization_api.py`: Provides an example of utilizing the ProActive Synchronization API to manage dependencies and synchronize the execution of tasks within a ProActive Scheduler job. The script demonstrates how to establish synchronization channels, set and wait for conditions, and use synchronization locks to coordinate the execution flow of multiple tasks. This example is essential for users needing to ensure ordered execution and dependency management among tasks, highlighting the API's capabilities in facilitating complex workflow orchestration.
+
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
 Additional scripts found in the `demo_ai_workflows` directory showcase various machine learning workflows, leveraging the ProActive Scheduler for tasks like data preprocessing, model training, evaluation, and prediction across different datasets and using various algorithms.
