@@ -16,6 +16,7 @@ This repository contains a collection of example scripts that demonstrate variou
   - [Installing the Proactive Python SDK](#installing-the-proactive-python-sdk)
     - [Using Makefile (For Mac and Linux)](#using-makefile-for-mac-and-linux)
     - [On Windows](#on-windows-2)
+  - [GitHub Codespaces (Linux)](#github-codespaces-linux)
   - [Running the Examples](#running-the-examples)
     - [Using Makefile (For Mac and Linux)](#using-makefile-for-mac-and-linux-1)
     - [On Windows](#on-windows-3)
@@ -95,6 +96,53 @@ make install_latest
 ```cmd
 build.bat INSTALL_LATEST
 ```
+
+## GitHub Codespaces (Linux)
+
+To set up your environment in GitHub Codespaces for building and running the ProActive Python Client examples, follow these steps:
+
+1. **Update the package list and install the Java 8 SDK:**
+
+    ```bash
+    sudo apt update
+    sudo apt install openjdk-8-jdk
+    ```
+
+2. **Clone the `jenv` repository and set up `jenv`:**
+
+    ```bash
+    git clone https://github.com/jenv/jenv.git ~/.jenv
+    echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+    echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+    source ~/.bash_profile
+    ```
+
+3. **Add Java 8 to `jenv` and set it as the global version:**
+
+    ```bash
+    jenv add /usr/lib/jvm/java-8-openjdk-amd64/jre/
+    jenv global 1.8
+    java -version
+    ```
+
+4. **Set up a virtual environment, install the Proactive Python SDK, and run the provided examples:**
+
+    ```bash
+    # Create a virtual environment
+    make virtualenv
+
+    # Install the latest pre-release or development version of the Proactive Python SDK
+    make install_latest
+
+    # To run all the provided example scripts
+    make run_all
+
+    # Or activate the environment and test a specific script, e.g., 'demo_basic.py'
+    source env/bin/activate
+    python3 demo_basic.py
+    ```
+
+By following these steps, you'll have the Java 8 SDK installed and configured with `jenv`. Additionally, you'll be able to install the ProActive Python Client package and execute the provided examples within GitHub Codespaces.
 
 ## Running the Examples
 
