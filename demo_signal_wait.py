@@ -6,12 +6,12 @@ The example encompasses the following steps:
 
 - Initializing the ProActive Scheduler gateway.
 - Creating a ProActive job.
-- Creating a Groovy task that waits for signals with specified variables.
-- Declaring that the current job is ready to receive and handle the 'Stop' and 'Continue' signals with the given variables (signal variables).
-- Waiting until one of the signals 'Continue' or 'Stop' is sent (via the Workflow Execution portal, Scheduler portal, or REST API).
-- Removing ready signals from the set of job signals.
-- Displaying the received signal and its updated variables.
+- Creating a Python task that waits for signals with specified variables.
+- Adding signals to the Python task, including 'Continue' and 'Update' with defined signal variables.
+- Setting the Python task implementation to handle the received signal and update variables.
+- Adding the Python task to the ProActive job.
 - Submitting the job to the ProActive Scheduler and retrieving the job ID.
+- Retrieving the job output.
 - Ensuring proper cleanup by disconnecting from the ProActive Scheduler gateway post-execution.
 
 Documentation:
@@ -26,59 +26,64 @@ gateway = getProActiveGateway()
 print("Creating a proactive job...")
 job = gateway.createJob("demo_signal_wait_job")
 
-# Create a Groovy task for waiting for signals with variables
-signal_task = gateway.createTask("groovy", "wait_for_signals_with_variables")
+# Create a Python task
+print("Creating a proactive task...")
+task = gateway.createPythonTask("demo_signal_wait_task")
 
-# Set the Groovy task implementation
-signal_task.setTaskImplementation(""" 
-import com.google.common.base.Splitter;
-import org.ow2.proactive.scheduler.common.job.JobVariable;
-
-// Define signal variables
-List<JobVariable> signalVariables = new java.util.ArrayList<JobVariable>()
-signalVariables.add(new JobVariable("INTEGER_VARIABLE", "12", "PA:INTEGER", "Put here a description of the Signal Variable. It will be displayed to the Users when sending the Signal.", "", false, false))
-signalVariables.add(new JobVariable("LIST_VARIABLE", "True", "PA:LIST(True,False)", "Put here a description of the Signal Variable. It will be displayed to the Users when sending the Signal.", "Group", true, false))
-signalVariables.add(new JobVariable("BOOLEAN_VARIABLE", "true", "PA:Boolean", "Put here a description of the Signal Variable. It will be displayed to the Users when sending the Signal.", "", true, false))
-
-// Read the variable SIGNALS
-signals = "Stop, Continue"
-
-// Split the value of the variable SIGNALS and transform it into a list
-Set signalsSet = new HashSet<>(Splitter.on(',').trimResults().omitEmptyStrings().splitToList(signals))
-
-// Send a ready notification for each signal in the set
-println("Ready for signals "+ signalsSet)
-signalsSet.each { signal ->
-    if(signal.equals("Stop")) {
-		signalapi.readyForSignal(signal);
-	} else {
-		signalapi.readyForSignal(signal, signalVariables)
-	}
+# Add signals to the Python task
+taskSignals = {
+    'Continue': {},
+    'Update': [
+        {
+            "name": "INTEGER_VARIABLE", 
+            "value": "12", 
+            "model": "PA:INTEGER", 
+            "description": "Put here a description of the Signal Variable. It will be displayed to the Users when sending the Signal.", 
+            "group": "", 
+            "advanced": False, 
+            "hidden": False
+        },
+        {
+            "name": "LIST_VARIABLE", 
+            "value": "True", 
+            "model": "PA:LIST(True,False)", 
+            "description": "Put here a description of the Signal Variable. It will be displayed to the Users when sending the Signal.", 
+            "group": "Group", 
+            "advanced": True, 
+            "hidden": False
+        }
+    ]
 }
+task.setSignals(taskSignals)
 
-// Wait until one signal among those specified is received
-println("Waiting for any signal among "+ signalsSet)
-receivedSignal = signalapi.waitForAny(signalsSet)
+# Set the Python task implementation
+task.setTaskImplementation("""
+task_name = variables.get("PA_TASK_NAME")
+task_id = variables.get("PA_TASK_ID")
+receivedSignalObjId = "RECEIVED_SIGNAL_"+task_name+"_"+task_id
+receivedSignalObj = variables.get(receivedSignalObjId)
+print(receivedSignalObjId, receivedSignalObj)
 
-// Remove ready signals
-signalapi.removeManySignals(new HashSet<>(signalsSet.collect { signal -> "ready_"+signal }))
-
-// Display the received signal and add it to the job result
-println("Received signal: "+ receivedSignal)
-
-println("Signal variables:")
-def variables = receivedSignal.getUpdatedVariables().each{ k, v -> println "${k}:${v}" }
-
-result = receivedSignal
+# User defined action for the received signal
+if receivedSignalObj['name'] == "Update":
+    updatedVariables = receivedSignalObj['variables']
+    INTEGER_VARIABLE = updatedVariables['INTEGER_VARIABLE']
+    LIST_VARIABLE = updatedVariables['LIST_VARIABLE']
 """)
 
-# Add the Groovy task to the job
-job.addTask(signal_task)
+# Add the Python task to the job
+print("Adding proactive tasks to the proactive job...")
+job.addTask(task)
 
-# Submit the job to the ProActive scheduler
+# Job submission
 print("Submitting the job to the proactive scheduler...")
 job_id = gateway.submitJob(job)
 print("job_id: " + str(job_id))
+
+# Retrieve job output
+print("Getting job output...")
+job_output = gateway.getJobOutput(job_id)
+print(job_output)
 
 # Cleanup
 gateway.close()
