@@ -9,7 +9,9 @@ The example encompasses the following steps:
 - Creating a Python task that waits for signals with specified variables.
 - Adding signals to the Python task, including 'Continue' and 'Update' with defined signal variables.
 - Setting the Python task implementation to handle the received signal and update variables.
-- Adding the Python task to the ProActive job.
+- Creating a second Python task that depends on the first task.
+- Setting the implementation for the second Python task to retrieve and print the received signal object.
+- Adding the Python tasks to the ProActive job.
 - Submitting the job to the ProActive Scheduler and retrieving the job ID.
 - Retrieving the job output.
 - Ensuring proper cleanup by disconnecting from the ProActive Scheduler gateway post-execution.
@@ -54,26 +56,29 @@ taskSignals = {
         }
     ]
 }
-task.setSignals(taskSignals)
-
-# Set the Python task implementation
+task.setSignals(taskSignals, scope="postscript")
 task.setTaskImplementation("""
 task_name = variables.get("PA_TASK_NAME")
 task_id = variables.get("PA_TASK_ID")
 receivedSignalObjId = "RECEIVED_SIGNAL_"+task_name+"_"+task_id
+result = receivedSignalObjId
+""")
+
+task2 = gateway.createPythonTask("demo_signal_wait_task2")
+task2.addDependency(task)
+
+# Set the Python task implementation
+task2.setTaskImplementation("""
+receivedSignalObjId = str(results[0])
+print("receivedSignalObjId", receivedSignalObjId)
 receivedSignalObj = variables.get(receivedSignalObjId)
 print(receivedSignalObjId, receivedSignalObj)
-
-# User defined action for the received signal
-if receivedSignalObj['name'] == "Update":
-    updatedVariables = receivedSignalObj['variables']
-    INTEGER_VARIABLE = updatedVariables['INTEGER_VARIABLE']
-    LIST_VARIABLE = updatedVariables['LIST_VARIABLE']
 """)
 
 # Add the Python task to the job
 print("Adding proactive tasks to the proactive job...")
 job.addTask(task)
+job.addTask(task2)
 
 # Job submission
 print("Submitting the job to the proactive scheduler...")
