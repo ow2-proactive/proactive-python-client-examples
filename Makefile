@@ -1,6 +1,6 @@
-.PHONY: virtualenv setup_venv uninstall_proactive install_latest install_latest_test install_latest_local run_all help
+.PHONY: virtualenv setup_venv uninstall_proactive install_latest install_latest_test install_latest_local run_all print_version help
 
-PYTHON_SDK_HOME="/PATH_TO/proactive-python-client"
+PYTHON_SDK_HOME="../proactive-python-client"
 PYTHON=python3
 
 setup_venv:
