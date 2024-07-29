@@ -24,9 +24,10 @@ job = gateway.createJob("demo_virtualenv_job")
 print("Creating a proactive task...")
 task = gateway.createPythonTask("demo_virtualenv_task")
 task.setTaskImplementation("""
+import sys
 import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))
-print("Python version: ", platform.python_version())
+print("Python version: ", platform.python_version(), sys.executable)
 
 import requests
 print("Running a simple http datetime request")
