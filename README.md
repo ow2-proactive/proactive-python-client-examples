@@ -222,6 +222,20 @@ This command will execute all `.py` files in the current directory.
 
 - `demo_ai_workflow.py`: Sets up and executes a machine learning workflow for the Iris dataset using the ProActive Scheduler. It demonstrates how to create a job, add tasks, and manage their execution sequence.
 
+- `demo_job_results.py`: Demonstrates the end-to-end process of job submission, task dependency management, and result retrieval using the ProActive Python SDK. It covers creating a ProActive job, adding multiple Python tasks with dependencies, submitting the job to the ProActive Scheduler, and retrieving the job's results.
+
+- `demo_signal_send.py`: Shows how to send a signal to a specified job with or without variables using the ProActive Signal API.
+
+- `demo_signal_wait.py`: Demonstrates the usage of the ProActive Scheduler Signal API to receive and handle signals within tasks.
+
+- `demo_signal_wait2.py`: Extends the signal waiting demonstration with additional tasks to showcase more complex signal handling scenarios.
+
+- `demo_continual_learning.py`: Illustrates how to implement a continual learning workflow using the ProActive Scheduler, demonstrating data generation, incremental learning, and model updating over multiple iterations.
+
+- `demo_virtualenv.py`: Shows how to create and execute a Python task within a custom virtual environment, demonstrating the ProActive Scheduler's support for isolated Python environments.
+
+- `demo_dockerfile.py`: Demonstrates how to submit a Dockerfile task to the ProActive Scheduler, showcasing the integration of Docker-based workflows within the ProActive environment.
+
 Additional scripts found in the `demo_ai_workflows` directory showcase various machine learning workflows, leveraging the ProActive Scheduler for tasks like data preprocessing, model training, evaluation, and prediction across different datasets and using various algorithms.
 
 Please ensure the ProActive Scheduler is running and accessible, and that you have the required scripts and environments set up before executing these examples.
