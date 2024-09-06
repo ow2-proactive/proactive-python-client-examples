@@ -29,11 +29,28 @@ import platform
 print("Hello from " + variables.get("PA_TASK_NAME"))
 print("Python version: ", platform.python_version(), sys.executable)
 
+import pkg_resources
+
+def list_installed_packages():
+    installed_packages = pkg_resources.working_set
+    package_list = sorted([f"{package.key}=={package.version}" for package in installed_packages])
+    return package_list
+
+packages = list_installed_packages()
+for package in packages:
+    print(package)
+
 import requests
 print("Running a simple http datetime request")
 r = requests.get('http://httpbin.org/ip')
 print(r.json())
 """)
+
+task.setDefaultPython("/usr/bin/python3")
+# task.setDefaultPython("/opt/miniconda3/py39/bin/python3")
+# task.setDefaultPython("/opt/miniconda3/py310/bin/python3")
+# task.setDefaultPython("/opt/miniconda3/py311/bin/python3")
+# task.setDefaultPython("/opt/miniconda3/py312/bin/python3")
 
 # Sets up a virtual environment for the task.
 # 
@@ -45,7 +62,7 @@ print(r.json())
 # - overwrite (bool): If True, overwrites the existing virtual environment (default is False).
 # - install_requirements_if_exists (bool): If True, installs requirements even if the virtual environment already exists (default is False).
 
-task.setVirtualEnv(requirements=['requests'])
+task.setVirtualEnv(requirements=['requests==2.26.0'])
 
 # Notes:
 # - The current directory of a task is its localspace which is a temporary space (removed after task execution).
