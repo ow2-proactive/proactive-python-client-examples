@@ -63,7 +63,7 @@ task.setDefaultPython("/usr/bin/python3")
 # - install_requirements_if_exists (bool): If True, installs requirements even if the virtual environment already exists (default is False).
 
 task.setVirtualEnv(requirements=['requests==2.26.0'])
-#task.setVirtualEnvFromFile('demo_virtualenv/requirements.txt')
+# task.setVirtualEnvFromFile('demo_virtualenv/requirements.txt')
 
 # Notes:
 # - The current directory of a task is its localspace which is a temporary space (removed after task execution).
