@@ -20,7 +20,7 @@
 from proactive.decorators import task, job
 
 # Define python_task using the @task decorator
-@task(name="python_task", language='Python')
+@task(name="python_task", language='python')
 def python_task():
     # Return a string that will be executed as Python code on the ProActive node
     return 'print("This is a Python task!")'
@@ -32,7 +32,7 @@ def bash_task():
     return 'echo "This is a Bash task!"'
 
 # Define r_task using the @task decorator
-@task(name="r_task", language='R')
+@task(name="r_task", language='r')
 def r_task():
     # Return a string that will be executed as R code on the ProActive node
     return 'print("This is an R task!")'
