@@ -32,7 +32,7 @@ def bash_task():
     return 'echo "This is a Bash task!"'
 
 # Define r_task using the @task decorator
-@task(name="r_task", language='r')
+@task(name="r_task", language='R')
 def r_task():
     # Return a string that will be executed as R code on the ProActive node
     return 'print("This is an R task!")'
