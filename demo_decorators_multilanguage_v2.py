@@ -44,7 +44,7 @@ def groovy_task():
     return 'println("This is a Groovy task that depends on the Python task!")'
 
 # Define the workflow using the @job decorator
-@job(name="demo_multilanguage_decorators")
+@job(name="demo_decorators_multilanguage_v2")
 def workflow():
     # Register tasks
     python_task()
