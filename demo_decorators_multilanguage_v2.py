@@ -18,34 +18,33 @@
 # This example serves as a starting point for users to understand how ProActive decorators can be used to streamline the process of defining and executing multi-language computational workflows in a distributed environment.
 
 from proactive.decorators import task, job
-from proactive import ProactiveScriptLanguage
 
 # Define python_task using the @task decorator
-@task(name="python_task", language=ProactiveScriptLanguage().python())
+@task.python(name="python_task")
 def python_task():
     # Return a string that will be executed as Python code on the ProActive node
     return 'print("This is a Python task!")'
 
 # Define bash_task using the @task decorator
-@task(name="bash_task", language=ProactiveScriptLanguage().bash())
+@task.bash(name="bash_task")
 def bash_task():
     # Return a string that will be executed as Bash code on the ProActive node
     return 'echo "This is a Bash task!"'
 
 # Define r_task using the @task decorator
-@task(name="r_task", language=ProactiveScriptLanguage().r())
+@task.r(name="r_task")
 def r_task():
     # Return a string that will be executed as R code on the ProActive node
     return 'print("This is an R task!")'
 
 # Define groovy_task using the @task decorator, specifying a dependency on python_task
-@task(name="groovy_task", depends_on=["python_task"], language=ProactiveScriptLanguage().groovy())
+@task.groovy(name="groovy_task", depends_on=["python_task"])
 def groovy_task():
     # This task will only execute after python_task has completed
     return 'println("This is a Groovy task that depends on the Python task!")'
 
 # Define the workflow using the @job decorator
-@job(name="demo_decorators_multilanguage")
+@job(name="demo_decorators_multilanguage_v2")
 def workflow():
     # Register tasks
     python_task()
