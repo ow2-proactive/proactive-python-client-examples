@@ -3,6 +3,7 @@ env
 *.pyc
 __pycache__
 _*
+._*
 Makefile.*
 demo_transf_file/file_count.txt
 *.code-workspace
