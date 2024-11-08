@@ -61,12 +61,12 @@ This command will create a new virtual environment or use the existing one based
 
 ### Upgrading Required Packages
 
-Once the virtual environment is activated, upgrade `pip`, `setuptools` and `python-dotenv` to the latest versions:
+Once the virtual environment is activated, upgrade `pip`, `setuptools`, `python-dotenv` and `humanize` to the latest versions:
 
 #### On Mac and Linux
 
 ```bash
-python3 -m pip install --upgrade pip setuptools python-dotenv
+python3 -m pip install --upgrade pip setuptools python-dotenv humanize
 ```
 
 If you have used the provided `Makefile`, it automatically upgrades these packages when setting up the virtual environment.

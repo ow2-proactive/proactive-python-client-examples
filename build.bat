@@ -21,7 +21,7 @@ goto :EOF
 :SETUP_VENV
 echo Setting up virtual environment...
 %PYTHON% -m venv env
-call env\Scripts\activate.bat && %PYTHON% -m pip install --upgrade pip setuptools python-dotenv
+call env\Scripts\activate.bat && %PYTHON% -m pip install --upgrade pip setuptools python-dotenv humanize
 call env\Scripts\activate.bat && %PYTHON% -m pip -V
 echo Virtual environment is ready.
 goto :EOF

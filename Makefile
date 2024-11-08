@@ -6,7 +6,7 @@ PYTHON=python3
 setup_venv:
 	@echo "Setting up virtual environment..."
 	@$(PYTHON) -m venv env
-	@. env/bin/activate && $(PYTHON) -m pip install --upgrade pip setuptools python-dotenv
+	@. env/bin/activate && $(PYTHON) -m pip install --upgrade pip setuptools python-dotenv humanize
 	@. env/bin/activate && $(PYTHON) -m pip -V
 	@echo "Virtual environment is ready."
 
