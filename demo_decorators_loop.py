@@ -13,7 +13,7 @@
 # The script defines four tasks:
 # - `before_task`: A Python task that runs before the loop begins.
 # - `start_task`: A Python task that serves as the entry point to the loop.
-# - `end_task_1`: A Python task that controls the loop logic, determining if the loop should continue or end.
+# - `end_task`: A Python task that controls the loop logic, determining if the loop should continue or end.
 # - `after_task`: A Python task that runs after the loop has completed.
 #
 # These tasks are then organized into a workflow using the @job decorator, showcasing how ProActive can manage the execution of tasks with minimal boilerplate code.
@@ -24,7 +24,7 @@
 from proactive.decorators import task, job, loop
 
 # Define a task to be run before the loop
-@task.python(name="before_task", )
+@task.python(name="before_task")
 def before_task():
     return """
 print("Hello from the before-loop task")
