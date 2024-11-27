@@ -23,6 +23,21 @@ def format_bytes(bytes_value):
 gateway = getProActiveGateway()
 monitoring_client = gateway.getProactiveMonitoringClient()
 
+# Fetch and list all ProActive JMX URLs along with additional information
+nodes_info = monitoring_client.list_proactive_jmx_urls()
+
+print("\nUnique ProActive JMX URLs with Node Information:")
+for node in nodes_info:
+    print(f"JMX URL: {node['proactiveJMXUrl']}, Node Source: {node['nodeSource']}, Host Name: {node['hostName']}")
+
+# Example usage with custom node URL
+# node_url = "service:jmx:ro:///jndi/pamr://4097/rmnode" # Default node URL (try)
+# node_url = "service:jmx:ro:///jndi/pamr://9232/rmnode" # Custom node URL (trydev2)
+# monitoring_client.node_url = node_url
+
+print("\nCurrent ProActive JMX URL:")
+print(f"JMX URL: {monitoring_client.node_url}")
+
 try:
     # Get current CPU metrics
     print("\nCurrent CPU Usage:")
@@ -91,6 +106,13 @@ finally:
 Logging on proactive-server...
 Connecting on: https://try.activeeon.com:8443
 Connected
+
+Unique ProActive JMX URLs with Node Information:
+JMX URL: service:jmx:ro:///jndi/pamr://4097/rmnode, Node Source: On-Prem-Server-Static-Nodes, Host Name: 163-172-30-91.rev.poneytelecom.eu
+JMX URL: service:jmx:ro:///jndi/pamr://9232/rmnode, Node Source: On-Prem-Server-Static-Nodes-TryDev2, Host Name: trydev2.activeeon.com
+
+Current ProActive JMX URL:
+JMX URL: service:jmx:ro:///jndi/pamr://4097/rmnode
 
 Current CPU Usage:
 ----------------------------------------
