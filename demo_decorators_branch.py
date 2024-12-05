@@ -69,7 +69,7 @@ print("Hello from continuation_task")
 """
 
 # Define the workflow using the @job decorator
-@job(name="demo_branch_job")
+@job(name="demo_decorators_branch_job")
 def workflow():
     start_task()          # Initial task
     condition_task()      # Condition task that branches
