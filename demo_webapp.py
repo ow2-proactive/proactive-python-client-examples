@@ -5,7 +5,7 @@ This script demonstrates the creation of a multi-step interactive pipeline using
 and a Flask web application for real-time user input. Key features include:
 
 1. Establishing a connection with the ProActive Scheduler using the getProActiveGateway function.
-2. Creating a job named "demo_pipeline_job" to manage and execute a series of Python tasks.
+2. Creating a job named "demo_webapp_job" to manage and execute a series of Python tasks.
 3. Defining a pipeline of three tasks:
    - Load_Data: Generates a dataframe and stores it in ProActive variables for use in subsequent tasks.
    - Flask_App: Launches a Flask-based web application, allowing users to view and edit the dataframe interactively.
@@ -19,7 +19,6 @@ This script highlights how the ProActive Scheduler can be used to create complex
 with integrated user input. It demonstrates the scheduler's flexibility in managing both automated and 
 interactive tasks, providing a foundation for developing robust computational pipelines.
 """
-import json
 from proactive import getProActiveGateway
 
 # Initialize the ProActive gateway
@@ -34,9 +33,11 @@ print("Creating Task 1: Load data into a dataframe...")
 task1 = gateway.createPythonTask("Load_Data")
 task1.setTaskImplementation("""
 import pandas as pd
+
 # Create a simple dataframe
 data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}
 df = pd.DataFrame(data)
+
 # Save the dataframe to a JSON string to pass it to the next task
 variables.put("dataframe_json", df.to_json())
 print("Dataframe created and passed to Task 2.")
