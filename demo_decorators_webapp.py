@@ -140,7 +140,7 @@ print(df)
 """
 
 # Define the workflow using the @job decorator
-@job(name="demo_pipeline_job")
+@job(name="demo_decorators_webapp_job")
 def workflow():
     load_data()
     flask_app()
