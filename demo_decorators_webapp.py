@@ -28,8 +28,6 @@ from proactive.decorators import task, job
 @task.python(name="Load_Data", virtual_env={"requirements": ["pandas"]})
 def load_data():
     return """
-import subprocess
-import sys
 import pandas as pd
 
 # Create a simple dataframe
@@ -45,10 +43,10 @@ print("Dataframe created and passed to Task 2.")
 @task.python(name="Flask_App", depends_on=["Load_Data"], virtual_env={"requirements": ["pandas", "flask"]})
 def flask_app():
     return """
-import pandas as pd
-import threading
-from flask import Flask, request, render_template_string
 import os
+import threading
+import pandas as pd
+from flask import Flask, request, render_template_string
 
 # Load the dataframe passed from Task 1
 dataframe_json = variables.get("dataframe_json")
