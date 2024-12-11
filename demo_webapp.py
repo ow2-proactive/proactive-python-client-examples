@@ -19,13 +19,16 @@ This script highlights how the ProActive Scheduler can be used to create complex
 with integrated user input. It demonstrates the scheduler's flexibility in managing both automated and 
 interactive tasks, providing a foundation for developing robust computational pipelines.
 """
-from proactive import getProActiveGateway
 import json
+from proactive import getProActiveGateway
+
 # Initialize the ProActive gateway
 gateway = getProActiveGateway()
+
 # Create a new ProActive job
 print("Creating a proactive job...")
-job = gateway.createJob("demo_pipeline_job")
+job = gateway.createJob("demo_webapp_job")
+
 # Task 1: Load data into a dataframe
 print("Creating Task 1: Load data into a dataframe...")
 task1 = gateway.createPythonTask("Load_Data")
@@ -40,19 +43,23 @@ print("Dataframe created and passed to Task 2.")
 """)
 task1.setDefaultPython("/usr/bin/python3")
 task1.setVirtualEnv(requirements=['pandas'])
+
 # Task 2: Start a Flask application
 print("Creating Task 2: Flask application for editing...")
 task2 = gateway.createPythonTask("Flask_App")
 task2.setTaskImplementation("""
-import pandas as pd
-import threading
-from flask import Flask, request, render_template_string
 import os
+import threading
+import pandas as pd
+from flask import Flask, request, render_template_string
+
 # Load the dataframe passed from Task 1
 dataframe_json = variables.get("dataframe_json")
 df = pd.read_json(dataframe_json)
+
 # Flask application
 app = Flask(__name__)
+
 @app.route('/', methods=['GET'])
 def index():
     global df
@@ -66,6 +73,7 @@ def index():
     </form>
     '''
     return render_template_string(html_template, dataframe=df.to_json())
+
 @app.route('/update', methods=['POST'])
 def update():
     global df
@@ -80,6 +88,7 @@ def update():
     except Exception as e:
         print("Error updating dataframe:", e)
         return f"Error updating dataframe: {e}", 400
+
 @app.route('/continue', methods=['POST'])
 def continue_pipeline():
     global df
@@ -103,36 +112,44 @@ def continue_pipeline():
     except Exception as e:
         print("Error in continue_pipeline:", e)
         return f"Error in continue_pipeline: {e}", 400
+
 @app.route('/stop', methods=['POST'])
 def stop_pipeline():
     print("User clicked Stop. Terminating pipeline.")
     # Send a response before shutting down
     return "Pipeline terminated. You can close this page now.", 200
+
 # Flask shutdown utility
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError("Not running with the Werkzeug Server")
     func()
+
 @app.after_request
 def shutdown_if_requested(response):
     if request.endpoint in ['stop_pipeline']:
         shutdown_server()
     return response
+
 # Start Flask app in a separate thread
 def run_flask_app():
     app.run(host='0.0.0.0', port=5000)
+
 print("Starting Flask application...")
 flask_thread = threading.Thread(target=run_flask_app)
 flask_thread.start()
 """)
 task2.setDefaultPython("/usr/bin/python3")
 task2.setVirtualEnv(requirements=['pandas', 'flask'])
+task2.addDependency(task1)
+
 # Task 3: Display the final dataframe
 print("Creating Task 3: Display final dataframe...")
 task3 = gateway.createPythonTask("Display_Final_Dataframe")
 task3.setTaskImplementation("""
 import pandas as pd
+
 # Load the dataframe passed from Task 2
 dataframe_json = variables.get("dataframe_json")
 if not dataframe_json:
@@ -140,27 +157,31 @@ if not dataframe_json:
 else:
     print("Dataframe JSON received in Task 3:", dataframe_json)
 df = pd.read_json(dataframe_json)
+
 # Display the dataframe
 print("Final dataframe:")
 print(df)
 """)
 task3.setDefaultPython("/usr/bin/python3")
 task3.setVirtualEnv(requirements=['pandas'])
+task3.addDependency(task2)
+
 # Add dependencies to create a pipeline
 print("Linking tasks...")
 job.addTask(task1)
 job.addTask(task2)
 job.addTask(task3)
-task2.addDependency(task1)
-task3.addDependency(task2)
+
 # Submit the job
 print("Submitting the job to the ProActive Scheduler...")
 job_id = gateway.submitJob(job)
 print("Job submitted with ID: " + str(job_id))
+
 # Retrieve job output
 print("Getting job output...")
 job_output = gateway.getJobOutput(job_id)
 print(job_output)
+
 # Cleanup
 gateway.close()
 print("Disconnected and finished.")
