@@ -128,7 +128,7 @@ def shutdown_server():
 
 @app.after_request
 def shutdown_if_requested(response):
-    if request.endpoint in ['stop_pipeline']:
+    if request.endpoint in ['continue_pipeline', 'stop_pipeline']:
         shutdown_server()
     return response
 
