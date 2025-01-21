@@ -1,3 +1,25 @@
+"""
+Interactive Data Editing Pipeline Using Flask and ProActive Scheduler
+
+This script demonstrates the creation of a multi-step interactive pipeline using the ProActive Scheduler 
+and a Flask web application for real-time user input. Key features include:
+
+1. Establishing a connection with the ProActive Scheduler using the getProActiveGateway function.
+2. Creating a job named "demo_webapp_job" to manage and execute a series of Python tasks.
+3. Defining a pipeline of three tasks:
+   - Load_Data: Generates a dataframe and stores it in ProActive variables for use in subsequent tasks.
+   - Flask_App: Launches a Flask-based web application, allowing users to view and edit the dataframe interactively.
+   - Display_Final_Dataframe: Outputs the final dataframe after modifications made in the Flask application.
+4. Passing data between tasks using ProActive variables, enabling seamless communication across the pipeline.
+5. Leveraging task dependencies to ensure correct execution order, with the Flask application task dependent on the dataframe creation task.
+6. Utilizing a prescript in Task 2 to retrieve and store the external IP address of the execution node, demonstrating dynamic runtime information retrieval.
+7. Implementing a user-controlled workflow mechanism in Task 2:
+   - Users can click "Continue" to proceed to Task 3.
+   - Users can click "Stop" to cancel Task 2, which fails the task and stops the entire workflow, ensuring no further execution.
+8. Utilizing the ProActive Scheduler's job submission capabilities to execute the defined workflow.
+9. Fetching and displaying the job's output upon completion for validation and debugging.
+"""
+
 from proactive import getProActiveGateway, ProactiveScriptLanguage
 
 # Initialize the ProActive gateway
