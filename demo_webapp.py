@@ -54,11 +54,31 @@ task2.setTaskErrorPolicy("cancelJob")
 
 # Add a pre-script to get the external IP address and port
 print("Adding a pre-script to Task 2...")
-pre_script = gateway.createPreScript(ProactiveScriptLanguage().linux_bash())
+pre_script = gateway.createPreScript(ProactiveScriptLanguage().groovy())
 pre_script.setImplementation("""
-EXTERNAL_IP=$(curl -s ifconfig.me)
-FLASK_PORT=5000
-echo "Flask app will run on: $EXTERNAL_IP:$FLASK_PORT"
+import java.net.URL
+
+def getExternalIP() {
+    def url = new URL("https://api.ipify.org")
+    return url.getText()
+}
+
+def externalIP = getExternalIP()
+def flaskPort = 5000
+
+println "Flask app is running on: ${externalIP}:${flaskPort}"
+
+// Connect to the scheduler
+schedulerapi.connect()
+
+// Add an external endpoint URL for the Flask application
+def flaskUrl = "http://${externalIP}:${flaskPort}"
+schedulerapi.addExternalEndpointUrl(
+    variables.get("PA_JOB_ID"),
+    "flask-app",
+    flaskUrl,
+    "https://cdn-icons-png.flaticon.com/128/5968/5968350.png"  // Flask icon
+)
 """)
 task2.setPreScript(pre_script)
 
@@ -147,6 +167,9 @@ def shutdown_server():
 def shutdown_if_requested(response):
     if request.endpoint in ['continue_pipeline', 'stop_pipeline']:
         shutdown_server()
+        schedulerapi.connect()
+        # Remove an endpoint
+        schedulerapi.removeExternalEndpointUrl(variables.get("PA_JOB_ID"), "flask-app")
     return response
 
 # Start Flask app in a separate thread
