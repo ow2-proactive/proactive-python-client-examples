@@ -11,10 +11,18 @@ This script demonstrates how to monitor hardware metrics using the ProActive Sch
 This script serves as a practical example for users who need to monitor system resources through the ProActive Scheduler, demonstrating the monitoring client's capabilities in tracking both real-time and historical system performance metrics.
 """
 
-from proactive import getProActiveGateway
-from proactive.monitoring.ProactiveNodeMBeanClient import TimeRange, CPUMetric, MemoryMetric
+import os
+import urllib3
 import humanize
 
+from proactive import getProActiveGateway
+from proactive.monitoring.ProactiveNodeMBeanClient import TimeRange, CPUMetric, MemoryMetric
+
+# Disable SSL certificate verification (for demo purposes only)
+os.environ['PYTHONHTTPSVERIFY'] = '0'
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Helper function to format bytes to human readable format
 def format_bytes(bytes_value):
     """Format bytes to human readable format"""
     return humanize.naturalsize(bytes_value, binary=True)
