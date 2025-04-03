@@ -26,7 +26,6 @@ gateway = getProActiveGateway()
 print("Creating a proactive job...")
 job = gateway.createJob("demo_multi_job_node_source")
 
-
 # Define specific node sources to target
 node_sources = ["On-Prem-Server-Static-Nodes-TryDev2", "On-Prem-Server-Static-Nodes"]
 
@@ -36,11 +35,11 @@ for i in range(4):
     job = gateway.createJob(f"NodeJob_{i}")
     task = gateway.createPythonTask(f"Task_{i}")
     task.setTaskImplementation(f'''
-    import time
-    print("Starting task {i}...")
-    time.sleep(15)
-    print("Finished task {i}")
-    ''')
+import time
+print("Starting task {i}...")
+time.sleep(15)
+print("Finished task {i}")
+''')
     job.addTask(task)
     jobs.append(job)
 
