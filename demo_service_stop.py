@@ -62,7 +62,7 @@ for sid in selected_ids:
     print(f"\n[INFO] Stopping Instance {sid} ({instance['INSTANCE_NAME']})...")
 
     try:
-        result = gateway.finishServiceViaRest(
+        result = gateway.finishService(
             instance_id=instance["instance_id"],
             bucket_name=instance["bucket_name"],
             workflow_name=f"Finish_{instance['workflow_name']}",

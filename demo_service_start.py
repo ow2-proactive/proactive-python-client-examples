@@ -26,7 +26,7 @@ workflow_variables = {
 
 try:
     # Start service via REST POST
-    response = gateway.startServiceViaRest(
+    response = gateway.startService(
         bucket_name=bucket_name,
         workflow_name=workflow_name,
         variables=workflow_variables
