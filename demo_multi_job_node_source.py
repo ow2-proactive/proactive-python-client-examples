@@ -51,7 +51,7 @@ print("Finished task {i}")
     jobs.append(job)
 
 # Submit and execute the jobs across selected node sources
-job_results = gateway.executeJobsAcrossNodeSources(jobs)
+job_results = gateway.executeJobsAcrossNodeSources(jobs, node_sources)
 
 # Display job execution results and collected hardware metrics
 for result in job_results:
