@@ -26,8 +26,15 @@ gateway = getProActiveGateway()
 print("Creating a proactive job...")
 job = gateway.createJob("demo_multi_job_node_source")
 
-# Define specific node sources to target
-node_sources = ["On-Prem-Server-Static-Nodes-TryDev2", "On-Prem-Server-Static-Nodes"]
+# Specify which node sources to use for distributing the jobs.
+# If left as None, the gateway will automatically discover and use all available node sources.
+node_sources = None
+
+# To target only specific node sources, uncomment and list them here:
+# node_sources = [
+#     "On-Prem-Server-Static-Nodes-TryDev2",  # e.g. your development cluster
+#     "On-Prem-Server-Static-Nodes"           # e.g. your main on-premise nodes
+# ]
 
 # Create multiple jobs with Python tasks
 jobs = []
@@ -44,7 +51,7 @@ print("Finished task {i}")
     jobs.append(job)
 
 # Submit and execute the jobs across selected node sources
-job_results = gateway.executeJobsAcrossNodeSources(jobs, node_sources)
+job_results = gateway.executeJobsAcrossNodeSources(jobs)
 
 # Display job execution results and collected hardware metrics
 for result in job_results:
